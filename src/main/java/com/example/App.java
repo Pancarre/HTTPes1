@@ -47,7 +47,7 @@ public class App
 
                 }while(!receive.isEmpty());
 
-                File f = (new File(str2));
+                File f = (new File("test/"+str2));
                 /*if(exist){
 
                     System.out.println("file trovato");
@@ -102,7 +102,7 @@ public class App
         out.writeBytes("HTTP/1.1 200 OK\n");
         out.writeBytes("Content-Length: " + f.length() + "\n");
 
-        out.writeBytes("Content-Type: text/html\n");
+        out.writeBytes("Content-Type: " + getFileExtension(f) + "\n");
 
         out.writeBytes("\n");
 
@@ -118,5 +118,36 @@ public class App
         in.close();
 
     }
+
+    private static String getFileExtension(File f){
+
+        String fname[] = f.getName().split("\\.");
+        String ext = fname[fname.length-1];
+        switch (ext){
+            case "html":
+            case "htm":
+
+                return "text/html";
+
+            case "png":
+            
+                return "image/png";
+            case "jpeg":
+            
+                return "image/jpeg";
+            case "css":
+
+                return "text/css";
+
+            default:
+
+                return "";
+                
+        }
+
+
+
+    }
+
 
 }
